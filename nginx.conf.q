@@ -25,11 +25,11 @@ http {
     server_tokens off;
     access_log /dev/stdout combined;
 
-    # Uncomment these lines to enable SSL.
-     ssl_ciphers         HIGH:!aNULL:!MD5;
-     ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-     ssl_session_cache   shared:SSL:10m;
-     ssl_session_timeout 10m;
+     Uncomment these lines to enable SSL.
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
 
     server {
         listen 80;
@@ -47,7 +47,6 @@ http {
     server {
         listen 443 default_server ssl;
         server_name nmtv-4.pp.ua www.nmtv-4.pp.ua;
-
         ssl_certificate /etc/nginx/ssl/live/nmtv-4.pp.ua/fullchain.pem;
         ssl_certificate_key /etc/nginx/ssl/live/nmtv-4.pp.ua/privkey.pem;
 
