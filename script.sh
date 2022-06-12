@@ -1,11 +1,5 @@
 #!/bin/bash
 #
-# Go to root
-cd /
-#
-# Init var
-OS=`uname -p`;
-#
 # Init domain name
 read -p "Enter Domain Name : " domain_name
 # Disable SELinux
@@ -41,7 +35,7 @@ sudo yum install -y yum-utils
 # Install Development Tools
 sudo yum group install -y "Development Tools"
 #
-# set time GMT +7
+# set time GMT +2
 ln -fs /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 #
 #Install docker
@@ -74,7 +68,6 @@ sudo docker compose run --rm  certbot certonly --webroot --webroot-path /var/www
 if [ $? -eq 0 ]
 then
   echo "Successfully test"
-  exit 0
 else
   echo "Test not pass. Check config" >&2
   exit 1
