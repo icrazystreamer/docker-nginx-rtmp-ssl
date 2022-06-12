@@ -25,30 +25,30 @@ http {
     server_tokens off;
     access_log /dev/stdout combined;
 
-    # Uncomment these lines to enable SSL.
-    #ssl_ciphers         HIGH:!aNULL:!MD5;
-    #ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    #ssl_session_cache   shared:SSL:10m;
-    #ssl_session_timeout 10m;
+   # Uncomment these lines to enable SSL.
+   ssl_ciphers         HIGH:!aNULL:!MD5;
+   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+   ssl_session_cache   shared:SSL:10m;
+   ssl_session_timeout 10m;
 
     server {
         listen 80;
-        server_name <DOMAIN_NAME>;
+        server_name DOMAIN_NAME;
 
         location /.well-known/acme-challenge/ {
             root /var/www/certbot;
         }
 
 	location / {
-        return 301 https://<DOMAIN_NAME>$request_uri;
+        return 301 https://DOMAIN_NAME$request_uri;
     	}
-    #}
+   }
     
-    #server {
-    #    listen 443 default_server ssl;
-    #    server_name <DOMAIN_NAME> www.<DOMAIN_NAME>;
-    #    ssl_certificate /etc/nginx/ssl/live/<DOMAIN_NAME>/fullchain.pem;
-    #    ssl_certificate_key /etc/nginx/ssl/live/<DOMAIN_NAME>/privkey.pem;
+   server {
+       listen 443 default_server ssl;
+       server_name DOMAIN_NAME www.DOMAIN_NAME;
+       ssl_certificate /etc/nginx/ssl/live/DOMAIN_NAME/fullchain.pem;
+       ssl_certificate_key /etc/nginx/ssl/live/DOMAIN_NAME/privkey.pem;
 
         location /stream {
              add_header 'Access-Control-Allow-Origin' '*' always;

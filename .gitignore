@@ -1,2 +1,4 @@
 certbot/
-
+nginx.conf.w
+nginx.conf.q
+test.sh
