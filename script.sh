@@ -1,5 +1,13 @@
 #!/bin/bash
 #
+# Info start
+clear
+echo "How to work:" | tee log-install.txt
+echo "===========================================" | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "Введите имя домена. Домен должен быть зарегистрирован и прописан в DNS" | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "==========================================="  | tee -a log-install.txt
 # Init domain name
 read -p "Enter Domain Name : " domain_name
 # Disable SELinux
@@ -35,7 +43,18 @@ sudo yum install -y yum-utils
 # Install Development Tools
 sudo yum group install -y "Development Tools"
 #
-# set time GMT +2
+# Install firewall-cmd
+sudo yum install -y firewalld
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-port=1935/tcp
+sudo firewall-cmd --reload
+sudo systemctl restart network
+sudo systemctl reload firewalld
+#
+# Set time GMT +2
 ln -fs /usr/share/zoneinfo/Europe/Kiev /etc/localtime
 #
 #Install docker
@@ -82,7 +101,7 @@ sed -i 's/^#.//g' nginx.conf
 #Restart Docker compose
 sudo docker compose restart
 #
-# Info
+# Info end
 clear
 echo "How to work:" | tee log-install.txt
 echo "===========================================" | tee -a log-install.txt
