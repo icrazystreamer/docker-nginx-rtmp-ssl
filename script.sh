@@ -69,7 +69,7 @@ sudo mkdir /opt/stream;
 cd /opt/stream
 #
 # Clone git repository
-sudo git clone https://github.com/icrazystreamer/docker-nginx-rtmp-ssl.git
+sudo git clone https://github.com/icrazystreamer/docker-nginx-rtmp-ssl.git -b dev
 #
 # Enter to folder of repository
 cd docker-nginx-rtmp-ssl
