@@ -11,7 +11,7 @@ echo "==========================================="  | tee -a log-install.txt
 # Init domain name
 read -p "Enter Domain Name : " domain_name
 # Disable SELinux
-sudo echo 0 > /selinux/enforce
+# sudo echo 0 > /selinux/enforce
 sudo sed -i 's/SELINUX=enforcing/SELINUX=disable/g'  /etc/sysconfig/selinux
 #
 # Disable ipv6
@@ -43,6 +43,9 @@ sudo yum install -y yum-utils
 # Install Development Tools
 sudo yum group install -y "Development Tools"
 #
+# Install wget
+sudo yum install -y wget
+#
 # Install firewall-cmd
 sudo yum install -y firewalld
 sudo systemctl enable firewalld
@@ -62,7 +65,7 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo yum install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin;
 sudo systemctl start docker;
 sudo systemctl enable docker;
-sudo systemctl status docker
+#sudo systemctl status docker
 #
 # Make work directory 
 sudo mkdir /opt/stream;
@@ -100,6 +103,9 @@ sed -i 's/^#.//g' nginx.conf
 #
 #Restart Docker compose
 sudo docker compose restart
+#
+# Remove source files
+sudo rm -rf /opt/stream
 #
 # Info end
 clear
