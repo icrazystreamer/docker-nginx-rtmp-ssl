@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Ver 0.0.1-dev
+# 
 # Info start
 clear
 echo "How to work:" | tee log-install.txt
@@ -12,21 +14,17 @@ echo "==========================================="  | tee -a log-install.txt
 read -p "Enter Domain Name : " domain_name
 # Disable SELinux
 # sudo echo 0 > /selinux/enforce
-sudo sed -i 's/SELINUX=enforcing/SELINUX=disable/g'  /etc/sysconfig/selinux
+# sudo sed -i 's/SELINUX=enforcing/SELINUX=disable/g'  /etc/sysconfig/selinux
 #
 # Disable ipv6
 sudo echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 sudo sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 sudo sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.d/rc.local
 #
-# Set locale
-sudo sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-sudo service sshd restart
-#
 # Remove unused
-sudo yum remove -y sendmail;
-sudo yum remove -y httpd;
-sudo yum remove -y cyrus-sasl
+#sudo yum remove -y sendmail;
+#sudo yum remove -y httpd;
+#sudo yum remove -y cyrus-sasl
 #
 # Update
 sudo yum update -y
@@ -99,7 +97,7 @@ fi
 sudo docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d $domain_name
 #
 # Remove rem
-sed -i 's/^#.//g' nginx.conf
+sudo sed -i 's/^#.//g' nginx.conf
 #
 #Restart Docker compose
 sudo docker compose restart
